@@ -19,7 +19,7 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
   protected axiosClient: AxiosInstance = axiosClient;
 
   public async index(toExpand?: string[]): Promise<ApiResponse<T[]>> {
-    const response = await this.axiosClient.get(`${this.collection}/ddd`, {
+    const response = await this.axiosClient.get(`${this.collection}/`, {
       params: {
         _expand: toExpand,
       },
