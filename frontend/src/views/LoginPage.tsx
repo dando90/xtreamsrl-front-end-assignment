@@ -1,5 +1,14 @@
+import { useStateContext } from "../contexts/contextProvider";
+
 const LoginPage: React.FC = () => {
-  return <div>LoginPage</div>;
+  const { setToken } = useStateContext();
+
+  return (
+    <>
+      <div>LoginPage</div>
+      <button onClick={() => setToken("qwerty")}>Login</button>
+    </>
+  );
 };
 
 export default LoginPage;
