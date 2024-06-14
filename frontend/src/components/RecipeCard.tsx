@@ -30,13 +30,13 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
       ></img>
       <div className="flex flex-row gap-5">
         <div className="rounded-full border-black border-2 py-1 px-5">
-          {cuisine.name}
+          {cuisine?.name}
         </div>
         <div className="rounded-full border-black border-2 py-1 px-5">
-          {diet.name}
+          {diet?.name}
         </div>
         <div className="rounded-full border-black border-2 py-1 px-5">
-          {difficulty.name}
+          {difficulty?.name}
         </div>
       </div>
     </article>
