@@ -12,8 +12,8 @@ export interface RecipeAPI {
   dietId: string;
   difficultyId: string;
   image: string;
-  cuisine: CuisineAPI;
-  diet: DietAPI;
-  difficulty: DifficultyAPI;
-  comments: CommentAPI[];
+  cuisine?: CuisineAPI;
+  diet?: DietAPI;
+  difficulty?: DifficultyAPI;
+  comments?: CommentAPI[];
 }
