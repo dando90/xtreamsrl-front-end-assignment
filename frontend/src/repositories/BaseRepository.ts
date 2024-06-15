@@ -27,7 +27,7 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
     return {
       data: response.data,
       status: response.status,
-      message: "Users retrieved successfully",
+      message: `${this.collectionPluralName()} retrieved successfully`,
     };
   }
 
@@ -36,7 +36,7 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
     return {
       data: response.data,
       status: response.status,
-      message: "User retrieved successfully",
+      message: `${this.collectionSingularName()} retrieved successfully`,
     };
   }
 
@@ -45,7 +45,21 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
     return {
       data: response.data,
       status: response.status,
-      message: "User created successfully",
+      message: `${this.collectionSingularName()} created successfully`,
     };
+  }
+
+  protected collectionPluralName(): string {
+    const collectionName = this.collection;
+    return (
+      `${
+        (collectionName?.charAt(0).toUpperCase() || "") +
+        collectionName?.slice(1)
+      }` || ""
+    );
+  }
+
+  protected collectionSingularName(): string {
+    return `${this.collectionPluralName().slice(0, -1)}`;
   }
 }
