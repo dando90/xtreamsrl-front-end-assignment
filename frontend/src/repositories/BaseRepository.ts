@@ -9,7 +9,11 @@ export interface ApiResponse<T> {
 
 export interface IBaseRepository<T> {
   index(toExpand?: string[]): Promise<ApiResponse<T[]>>;
-  show(id: any): Promise<ApiResponse<T>>;
+  show(
+    id: string,
+    toExpand?: string[],
+    toEmbed?: string[]
+  ): Promise<ApiResponse<T>>;
   store(item: T): Promise<ApiResponse<T>>;
 }
 
@@ -31,8 +35,18 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
     };
   }
 
-  public async show(id: string): Promise<ApiResponse<T>> {
-    const response = await this.axiosClient.get(`${this.collection}/${id}`);
+  public async show(
+    id: string,
+    toExpand?: string[],
+    toEmbed?: string[]
+  ): Promise<ApiResponse<T>> {
+    const response = await this.axiosClient.get(`${this.collection}/${id}`, {
+      params: {
+        _expand: toExpand,
+        _embed: toEmbed,
+      },
+    });
+
     return {
       data: response.data,
       status: response.status,
