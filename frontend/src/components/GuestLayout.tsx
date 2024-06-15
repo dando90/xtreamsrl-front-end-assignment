@@ -10,8 +10,10 @@ const GuestLayout = () => {
 
   return (
     <>
-      <div>GuestLayout</div>
-      <Outlet />
+      <div className="m-5">
+        GuestLayout
+        <Outlet />
+      </div>
     </>
   );
 };

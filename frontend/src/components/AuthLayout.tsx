@@ -10,9 +10,11 @@ const AuthLayout = () => {
 
   return (
     <>
-      <div>AuthLayout</div>
-      <button onClick={() => setToken(null)}>Logout</button>
-      <Outlet />
+      <div className="m-5">
+        AuthLayout
+        <button onClick={() => setToken(null)}>Logout</button>
+        <Outlet />
+      </div>
     </>
   );
 };

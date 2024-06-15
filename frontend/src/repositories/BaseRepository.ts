@@ -8,7 +8,7 @@ export interface ApiResponse<T> {
 }
 
 export interface IBaseRepository<T> {
-  index(toExpand?: string[]): Promise<ApiResponse<T[]>>;
+  index(page: number, toExpand?: string[]): Promise<ApiResponse<T[]>>;
   show(
     id: string,
     toExpand?: string[],
@@ -22,9 +22,14 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
   protected collection: string | undefined;
   protected axiosClient: AxiosInstance = axiosClient;
 
-  public async index(toExpand?: string[]): Promise<ApiResponse<T[]>> {
+  public async index(
+    page: number,
+    toExpand?: string[]
+  ): Promise<ApiResponse<T[]>> {
     const response = await this.axiosClient.get(`${this.collection}/`, {
       params: {
+        _page: page,
+        _limit: 5,
         _expand: toExpand,
       },
     });
