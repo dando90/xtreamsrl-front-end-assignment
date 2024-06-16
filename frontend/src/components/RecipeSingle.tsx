@@ -1,4 +1,5 @@
 import { RecipeAPI } from "../types/recipe";
+import CommentList from "./CommentList";
 
 interface RecipeSingleProps {
   recipe: RecipeAPI;
@@ -62,6 +63,7 @@ const RecipeSingle: React.FC<RecipeSingleProps> = ({ recipe }) => {
           </div>
         )}
       </div>
+      <CommentList recipeId={id} comments={comments || []} />
     </article>
   );
 };
