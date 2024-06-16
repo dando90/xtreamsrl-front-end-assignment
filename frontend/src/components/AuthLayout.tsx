@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../contexts/contextProvider";
 
 const AuthLayout = () => {
@@ -16,7 +16,9 @@ const AuthLayout = () => {
     <div className="min-h-screen flex flex-col">
       <header className="bg-primary text-textPrimary p-4">
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Recipe Site</h1>
+          <Link to={"/"}>
+            <h1 className="text-2xl font-bold">Recipe Site</h1>
+          </Link>
           <button
             onClick={handleLogout}
             className="bg-background hover:bg-secondary hover:text-primary text-textPrimary font-bold py-2 px-4 rounded"
