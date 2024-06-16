@@ -3,9 +3,21 @@ import RecipeRepository from "../repositories/RecipeRepository";
 import { RecipeAPI } from "../types/recipe";
 import RecipeSingle from "../components/RecipeSingle";
 import { useParams } from "react-router-dom";
+import LoadingPage from "./LoadingPage";
 
 const RecipePage: React.FC = () => {
-  const [recipe, setRecipes] = useState<RecipeAPI>();
+  const defaultRecipeState: RecipeAPI = {
+    id: "",
+    name: "",
+    ingredients: [],
+    instructions: "",
+    cuisineId: "",
+    dietId: "",
+    difficultyId: "",
+    image: "",
+  };
+
+  const [recipe, setRecipes] = useState<RecipeAPI>(defaultRecipeState);
   const [loading, setLoading] = useState(true);
   let { id } = useParams();
 
@@ -27,10 +39,12 @@ const RecipePage: React.FC = () => {
     setLoading(false);
   };
 
+  if (loading) return <LoadingPage />;
+
   return (
     <>
       <div>RecipePage</div>
-      {recipe ? <RecipeSingle recipe={recipe} /> : <div>Loading...</div>}
+      <RecipeSingle recipe={recipe} />
     </>
   );
 };

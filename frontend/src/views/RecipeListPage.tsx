@@ -3,6 +3,7 @@ import RecipeRepository from "../repositories/RecipeRepository";
 import { RecipeAPI } from "../types/recipe";
 import RecipeList from "../components/RecipeList";
 import PageNavigation from "../components/PageNavigation";
+import LoadingPage from "./LoadingPage";
 
 const RecipeListPage: React.FC = () => {
   const [recipes, setRecipes] = useState<RecipeAPI[]>([]);
@@ -21,10 +22,13 @@ const RecipeListPage: React.FC = () => {
       "diet",
       "difficulty",
     ]);
+    console.log(recipeList.data.length);
     setRecipes(recipeList.data);
     console.log(recipeList);
     setLoading(false);
   };
+
+  if (loading) return <LoadingPage />;
 
   return (
     <>
