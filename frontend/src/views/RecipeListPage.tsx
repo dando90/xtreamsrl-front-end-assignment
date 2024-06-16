@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
+import { useStateContext } from "../contexts/contextProvider";
 import RecipeRepository from "../repositories/RecipeRepository";
 import { RecipeAPI } from "../types/recipe";
 import RecipeList from "../components/RecipeList";
 import PageNavigation from "../components/PageNavigation";
 import LoadingPage from "./LoadingPage";
+import SearchFilterBar from "../components/SearchFilterBar";
 
 const RecipeListPage: React.FC = () => {
   const [recipes, setRecipes] = useState<RecipeAPI[]>([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const { searchParams, setSearchParams } = useStateContext();
 
   useEffect(() => {
     getRecipes();
@@ -32,6 +35,7 @@ const RecipeListPage: React.FC = () => {
 
   return (
     <>
+      <SearchFilterBar />
       <RecipeList recipeList={recipes} />
       <PageNavigation page={page} setPage={setPage} />
     </>
