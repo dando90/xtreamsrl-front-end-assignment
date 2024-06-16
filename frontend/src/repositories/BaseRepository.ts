@@ -21,15 +21,16 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
   //TODO add try/catch to handle errors
   protected collection: string | undefined;
   protected axiosClient: AxiosInstance = axiosClient;
+  protected forPage: number | undefined;
 
   public async index(
-    page: number,
+    page?: number,
     toExpand?: string[]
   ): Promise<ApiResponse<T[]>> {
     const response = await this.axiosClient.get(`${this.collection}/`, {
       params: {
         _page: page,
-        _limit: 5,
+        _limit: this.forPage || null,
         _expand: toExpand,
       },
     });

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import RecipeRepository from "../repositories/RecipeRepository";
 import { RecipeAPI } from "../types/recipe";
 import RecipeSingle from "../components/RecipeSingle";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import LoadingPage from "./LoadingPage";
 import { ArrowLongLeftIcon } from "@heroicons/react/20/solid";
 
@@ -21,7 +21,6 @@ const RecipePage: React.FC = () => {
   const [recipe, setRecipes] = useState<RecipeAPI>(defaultRecipeState);
   const [loading, setLoading] = useState(true);
   let { id } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     getRecipe();
@@ -30,14 +29,12 @@ const RecipePage: React.FC = () => {
   const getRecipe = async () => {
     setLoading(true);
     const recipeRepository = new RecipeRepository();
-    console.log(id);
     const recipeItem = await recipeRepository.show(
       id || "",
       ["cuisine", "diet", "difficulty"],
       ["comment"]
     );
     setRecipes(recipeItem.data);
-    console.log(recipeItem);
     setLoading(false);
   };
 
@@ -45,14 +42,16 @@ const RecipePage: React.FC = () => {
 
   return (
     <>
-      <h2 className="text-bold text-[40px] m-10 text-primary">
+      <Link
+        className="text-bold text-[40px] m-10 align-middle text-primary"
+        to={"/recipes"}
+      >
         <ArrowLongLeftIcon
           className="inline-block m-3 h-10 w-10 text-primary"
           aria-hidden="true"
-          onClick={() => navigate("/recipes")}
         />
         Back To The List
-      </h2>
+      </Link>
       <RecipeSingle recipe={recipe} />
     </>
   );

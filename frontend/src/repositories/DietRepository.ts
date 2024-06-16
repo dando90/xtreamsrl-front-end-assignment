@@ -1,7 +1,7 @@
 import { BaseRepository } from "./BaseRepository";
-import { RecipeAPI } from "../types/recipe";
+import { DietAPI } from "../types/diet";
 
-class DietRepository extends BaseRepository<RecipeAPI> {
+class DietRepository extends BaseRepository<DietAPI> {
   collection = "diets";
 }
 

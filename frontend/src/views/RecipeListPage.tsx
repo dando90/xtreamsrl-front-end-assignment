@@ -25,9 +25,7 @@ const RecipeListPage: React.FC = () => {
       "diet",
       "difficulty",
     ]);
-    console.log(recipeList.data.length);
     setRecipes(recipeList.data);
-    console.log(recipeList);
     setLoading(false);
   };
 

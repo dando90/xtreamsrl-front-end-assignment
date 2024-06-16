@@ -1,7 +1,7 @@
 import { BaseRepository } from "./BaseRepository";
-import { RecipeAPI } from "../types/recipe";
+import { CommentAPI } from "../types/comment";
 
-class CommentsRepository extends BaseRepository<RecipeAPI> {
+class CommentsRepository extends BaseRepository<CommentAPI> {
   collection = "comments";
 }
 
