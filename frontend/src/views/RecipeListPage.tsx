@@ -32,7 +32,6 @@ const RecipeListPage: React.FC = () => {
 
   return (
     <>
-      <div>RecipeListPage</div>
       <RecipeList recipeList={recipes} />
       <PageNavigation page={page} setPage={setPage} />
     </>

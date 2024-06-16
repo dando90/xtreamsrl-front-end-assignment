@@ -18,26 +18,49 @@ const RecipeSingle: React.FC<RecipeSingleProps> = ({ recipe }) => {
   } = recipe;
 
   return (
-    <article className="flex flex-col gap-2" id={`recipe#${id}`}>
-      <div>{name}</div>
-      <div>{ingredients.join(", ")}</div>
-      <div>{instructions}</div>
-      <img
-        src={`http://localhost:8080${image}`}
-        alt={name}
-        height={300}
-        width={300}
-      ></img>
-      <div className="flex flex-row gap-5">
-        <div className="rounded-full border-black border-2 py-1 px-5">
-          {cuisine?.name}
+    <article
+      className="flex flex-col gap-6 p-6 max-w-3xl mx-auto bg-white shadow-lg rounded-lg"
+      id={`recipe#${id}`}
+    >
+      <div className="text-2xl font-bold text-primary">{name}</div>
+
+      <div className="flex flex-row gap-5 ">
+        <img
+          className="w-3/5 h-auto rounded-lg"
+          src={`http://localhost:8080${image}`}
+          alt={name}
+        />
+        <div className="w-1/5 text-lg text-gray-700">
+          <div className="font-bold">Ingredients</div>
+          <ul className="ml-5">
+            {ingredients.map((ingredient, index) => (
+              <li className="list-disc" key={index}>
+                {ingredient}
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="rounded-full border-black border-2 py-1 px-5">
-          {diet?.name}
-        </div>
-        <div className="rounded-full border-black border-2 py-1 px-5">
-          {difficulty?.name}
-        </div>
+      </div>
+      <div className="text-lg text-gray-700">
+        <div className="font-bold">Instructions</div>
+        {instructions}
+      </div>
+      <div className="flex flex-wrap gap-3 mt-4">
+        {cuisine && (
+          <div className="rounded-full border border-gray-300 py-1 px-5 text-sm text-gray-600">
+            {cuisine.name}
+          </div>
+        )}
+        {diet && (
+          <div className="rounded-full border border-gray-300 py-1 px-5 text-sm text-gray-600">
+            {diet.name}
+          </div>
+        )}
+        {difficulty && (
+          <div className="rounded-full border border-gray-300 py-1 px-5 text-sm text-gray-600">
+            {difficulty.name}
+          </div>
+        )}
       </div>
     </article>
   );

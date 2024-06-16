@@ -11,7 +11,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipeList }) => {
 
   return (
     <>
-      <div>RecipeList</div>
+      <h2 className="text-bold text-[40px] m-10 text-primary">Recipe List</h2>
       {recipeComponentList}
     </>
   );
