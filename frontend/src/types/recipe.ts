@@ -11,7 +11,7 @@ export interface RecipeAPI {
   cuisineId: string;
   dietId: string;
   difficultyId: string;
-  image: string;
+  image: string | null | File;
   cuisine?: CuisineAPI;
   diet?: DietAPI;
   difficulty?: DifficultyAPI;

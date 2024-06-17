@@ -1,16 +1,20 @@
 import { useState } from "react";
 import { RecipeAPI } from "../types/recipe";
 import { useStateContext } from "../contexts/contextProvider";
+import RecipeRepository from "../repositories/RecipeRepository";
+import { useNavigate } from "react-router-dom";
 
 const RecipeAdd: React.FC = () => {
   const { filterData } = useStateContext();
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState<string[]>([""]);
   const [instructions, setInstructions] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState<File | null>(null);
   const [selectedCuisine, setSelectedCuisine] = useState("");
   const [selectedDiet, setSelectedDiet] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
+
+  const navigate = useNavigate();
 
   const handleIngredientChange = (index: number, value: string) => {
     const newIngredients = [...ingredients];
@@ -22,7 +26,13 @@ const RecipeAdd: React.FC = () => {
     setIngredients([...ingredients, ""]);
   };
 
-  const handleSave = () => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const handleSave = async () => {
     const newRecipe: RecipeAPI = {
       name,
       ingredients,
@@ -33,7 +43,22 @@ const RecipeAdd: React.FC = () => {
       dietId: selectedDiet,
       difficultyId: selectedDifficulty,
     };
-    //TODO save recipe to db, change image to binary data
+
+    const formData = new FormData();
+    formData.append("name", newRecipe.name);
+    formData.append("ingredients", newRecipe.ingredients.join(","));
+    formData.append("instructions", newRecipe.instructions);
+    if (image) {
+      formData.append("image", image);
+    }
+    formData.append("cuisineId", newRecipe.cuisineId);
+    formData.append("dietId", newRecipe.dietId);
+    formData.append("difficultyId", newRecipe.difficultyId);
+
+    const recipeRepository = new RecipeRepository();
+    await recipeRepository.store(formData);
+
+    navigate("/recipes");
   };
 
   return (
@@ -67,17 +92,24 @@ const RecipeAdd: React.FC = () => {
             Add Ingredient
           </button>
         </div>
+
         <textarea
           placeholder="Instructions"
           className="bg-background p-2 border focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
           value={instructions}
           onChange={(e) => setInstructions(e.target.value)}
         />
+        {image && (
+          <img
+            className="max-w-[500px]"
+            src={URL.createObjectURL(image)}
+            alt=""
+          />
+        )}
         <input
           type="file"
           className="bg-background p-2 border focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
+          onChange={handleImageChange}
         />
         <select
           value={selectedCuisine}

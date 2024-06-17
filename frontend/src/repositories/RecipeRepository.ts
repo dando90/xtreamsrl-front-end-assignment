@@ -1,7 +1,7 @@
 import { BaseRepository } from "./BaseRepository";
 import { RecipeAPI } from "../types/recipe";
 
-class RecipeRepository extends BaseRepository<RecipeAPI> {
+class RecipeRepository extends BaseRepository<RecipeAPI | FormData> {
   collection = "recipes";
   forPage = import.meta.env.VITE_RECIPES_FOR_PAGE || 5;
 }
