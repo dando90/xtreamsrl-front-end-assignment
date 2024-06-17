@@ -20,7 +20,7 @@ const RecipeSingle: React.FC<RecipeSingleProps> = ({ recipe }) => {
 
   return (
     <article
-      className="flex flex-col gap-6 p-6 max-w-3xl mx-auto bg-white shadow-lg rounded-lg"
+      className="flex flex-col gap-6 p-6 w-full mx-auto bg-white shadow-lg rounded-lg"
       id={`recipe#${id}`}
     >
       <div className="text-2xl font-bold text-primary">{name}</div>
