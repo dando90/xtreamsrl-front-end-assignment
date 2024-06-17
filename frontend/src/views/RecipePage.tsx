@@ -32,7 +32,7 @@ const RecipePage: React.FC = () => {
     const recipeItem = await recipeRepository.show(
       id || "",
       ["cuisine", "diet", "difficulty"],
-      ["comment"]
+      ["comments"]
     );
     setRecipes(recipeItem.data);
     setLoading(false);

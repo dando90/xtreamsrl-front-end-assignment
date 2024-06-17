@@ -52,6 +52,7 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
         _embed: toEmbed,
       },
     });
+    console.log(toEmbed);
 
     return {
       data: response.data,

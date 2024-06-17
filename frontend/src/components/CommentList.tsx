@@ -8,29 +8,6 @@ interface CommentListProps {
 }
 
 const CommentList: React.FC<CommentListProps> = ({ recipeId, comments }) => {
-  const commentsFake: CommentAPI[] = [
-    {
-      id: "1",
-      recipeId: "1",
-      comment: "Delicious and easy to make!",
-      rating: 5,
-      date: "2024-06-08T14:48:00.000Z",
-    },
-    {
-      id: "2",
-      recipeId: "1",
-      comment: "Loved it! Perfect for a quick dinner.",
-      rating: 4,
-      date: "2024-06-09T12:30:00.000Z",
-    },
-    {
-      id: "3",
-      recipeId: "1",
-      comment: "Great flavors, will make again.",
-      rating: 5,
-      date: "2024-06-10T09:45:00.000Z",
-    },
-  ];
   const [newComment, setNewComment] = useState({
     recipeId: recipeId,
     comment: "",
@@ -58,7 +35,7 @@ const CommentList: React.FC<CommentListProps> = ({ recipeId, comments }) => {
         Comments
       </h2>
       <div className="space-y-4">
-        {commentsFake.map((comment, index) => (
+        {comments.map((comment, index) => (
           <div
             key={index}
             className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm"
