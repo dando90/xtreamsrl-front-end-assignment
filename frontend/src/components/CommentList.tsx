@@ -1,19 +1,16 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { CommentAPI } from "../types/comment";
 import { formatDateForHumans } from "../utils/formatDate";
 import CommentsRepository from "../repositories/CommentRepository";
+import LoadingPage from "../views/LoadingPage";
 
 interface CommentListProps {
   recipeId: string;
   comments: CommentAPI[];
-  setComments: Dispatch<SetStateAction<CommentAPI>>;
 }
 
-const CommentList: React.FC<CommentListProps> = ({
-  recipeId,
-  comments,
-  setComments,
-}) => {
+const CommentList: React.FC<CommentListProps> = ({ recipeId, comments }) => {
+  const [commentList, setCommentList] = useState(comments);
   const [newComment, setNewComment] = useState({
     recipeId: recipeId,
     comment: "",
@@ -40,18 +37,20 @@ const CommentList: React.FC<CommentListProps> = ({
     setNewComment((prevState) => ({
       ...prevState,
       date: new Date().toISOString(),
+      id: "",
     }));
     const newCommentSaved = await commentRepository.store(newComment);
+    setCommentList((prevState) => [...prevState, newCommentSaved.data]);
     setNewComment({
       recipeId: recipeId,
       comment: "",
       rating: 0,
       date: new Date().toISOString(),
     });
-    console.log(newCommentSaved.data);
-    //Add new comment in state
     setLoading(false);
   };
+
+  if (loading) return <LoadingPage />;
 
   return (
     <div className="mx-auto my-8 p-6 w-full bg-background rounded-lg shadow-lg">
@@ -59,7 +58,7 @@ const CommentList: React.FC<CommentListProps> = ({
         Comments
       </h2>
       <div className="space-y-4">
-        {comments.map((comment, index) => (
+        {commentList.map((comment, index) => (
           <div
             key={index}
             className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm"
