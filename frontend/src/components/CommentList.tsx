@@ -1,33 +1,57 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { CommentAPI } from "../types/comment";
 import { formatDateForHumans } from "../utils/formatDate";
+import CommentsRepository from "../repositories/CommentRepository";
 
 interface CommentListProps {
   recipeId: string;
   comments: CommentAPI[];
+  setComments: Dispatch<SetStateAction<CommentAPI>>;
 }
 
-const CommentList: React.FC<CommentListProps> = ({ recipeId, comments }) => {
+const CommentList: React.FC<CommentListProps> = ({
+  recipeId,
+  comments,
+  setComments,
+}) => {
   const [newComment, setNewComment] = useState({
     recipeId: recipeId,
     comment: "",
     rating: 0,
     date: new Date().toISOString(),
   });
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+    const valueToStore = e.target.type == "radio" ? parseInt(value) : value;
     setNewComment((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: valueToStore,
     }));
   };
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    const commentRepository = new CommentsRepository();
+    setNewComment((prevState) => ({
+      ...prevState,
+      date: new Date().toISOString(),
+    }));
+    const newCommentSaved = await commentRepository.store(newComment);
+    setNewComment({
+      recipeId: recipeId,
+      comment: "",
+      rating: 0,
+      date: new Date().toISOString(),
+    });
+    console.log(newCommentSaved.data);
+    //Add new comment in state
+    setLoading(false);
+  };
 
   return (
     <div className="mx-auto my-8 p-6 w-full bg-background rounded-lg shadow-lg">
@@ -44,9 +68,13 @@ const CommentList: React.FC<CommentListProps> = ({ recipeId, comments }) => {
               <span className="font-bold text-gray-600">
                 {formatDateForHumans(comment.date)}
               </span>
-              <span className="text-yellow-500">
-                {"⭐".repeat(comment.rating)}
-              </span>
+              {comment.rating ? (
+                <span className="text-yellow-500">
+                  {"⭐".repeat(comment.rating)}
+                </span>
+              ) : (
+                <span>Zero</span>
+              )}
             </div>
             <p className="text-gray-700">{comment.comment}</p>
           </div>
