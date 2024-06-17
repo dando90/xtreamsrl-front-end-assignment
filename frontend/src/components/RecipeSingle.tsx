@@ -78,7 +78,7 @@ const RecipeSingle: React.FC<RecipeSingleProps> = ({ recipe }) => {
           </div>
         )}
       </div>
-      <CommentList recipeId={id} comments={comments || []} />
+      <CommentList recipeId={id || ""} comments={comments || []} />
     </article>
   );
 };

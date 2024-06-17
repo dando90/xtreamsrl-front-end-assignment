@@ -4,7 +4,7 @@ import { DietAPI } from "./diet";
 import { DifficultyAPI } from "./difficulty";
 
 export interface RecipeAPI {
-  id: string;
+  id?: string;
   name: string;
   ingredients: Array<string>;
   instructions: string;
