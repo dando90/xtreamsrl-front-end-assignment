@@ -11,7 +11,7 @@ const RecipeListPage: React.FC = () => {
   const [recipes, setRecipes] = useState<RecipeAPI[]>([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const { searchParams, setSearchParams } = useStateContext();
+  const { searchParams } = useStateContext();
 
   useEffect(() => {
     getRecipes();
