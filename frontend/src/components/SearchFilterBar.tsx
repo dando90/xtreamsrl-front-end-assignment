@@ -4,7 +4,7 @@ import { useStateContext } from "../contexts/contextProvider";
 const SearchFilterBar: React.FC = () => {
   const { searchParams, setSearchParams, filterData } = useStateContext();
 
-  const [searchText, setSearchText] = useState<string>(searchParams.text);
+  const [q, setQ] = useState<string>(searchParams.q);
   const [selectedCuisine, setSelectedCuisine] = useState<string>(
     searchParams.cuisineId
   );
@@ -15,7 +15,7 @@ const SearchFilterBar: React.FC = () => {
 
   const handleSearchClick = () => {
     setSearchParams({
-      text: searchText,
+      q,
       cuisineId: selectedCuisine,
       difficultyId: selectedDifficulty,
       dietId: selectedDiet,
@@ -25,10 +25,10 @@ const SearchFilterBar: React.FC = () => {
   return (
     <div className="flex flex-col sm:flex-row gap-4 p-4 bg-white shadow-md rounded-lg">
       <input
-        type="text"
+        type="q"
         placeholder="Search by name..."
-        value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
+        value={q}
+        onChange={(e) => setQ(e.target.value)}
         className="bg-background flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
       />
       <select

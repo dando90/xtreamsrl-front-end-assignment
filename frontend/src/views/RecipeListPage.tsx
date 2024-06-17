@@ -15,16 +15,16 @@ const RecipeListPage: React.FC = () => {
 
   useEffect(() => {
     getRecipes();
-  }, [page]);
+  }, [page, null, searchParams]);
 
   const getRecipes = async () => {
     setLoading(true);
     const recipeRepository = new RecipeRepository();
-    const recipeList = await recipeRepository.index(page, [
-      "cuisine",
-      "diet",
-      "difficulty",
-    ]);
+    const recipeList = await recipeRepository.index(
+      page,
+      ["cuisine", "diet", "difficulty"],
+      searchParams
+    );
     setRecipes(recipeList.data);
     setLoading(false);
   };

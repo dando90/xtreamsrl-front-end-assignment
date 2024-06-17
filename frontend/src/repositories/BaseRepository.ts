@@ -7,8 +7,19 @@ export interface ApiResponse<T> {
   message: string;
 }
 
+export interface SearchParams {
+  cuisineId: string;
+  dietId: string;
+  difficultyId: string;
+  q: string;
+}
+
 export interface IBaseRepository<T> {
-  index(page: number, toExpand?: string[]): Promise<ApiResponse<T[]>>;
+  index(
+    page: number,
+    toExpand?: string[],
+    params?: SearchParams
+  ): Promise<ApiResponse<T[]>>;
   show(
     id: string,
     toExpand?: string[],
@@ -25,13 +36,20 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
 
   public async index(
     page?: number,
-    toExpand?: string[]
+    toExpand?: string[],
+    params?: SearchParams
   ): Promise<ApiResponse<T[]>> {
+    const filteredParams = params
+      ? Object.fromEntries(
+          Object.entries(params).filter(([_, value]) => value !== "")
+        )
+      : {};
     const response = await this.axiosClient.get(`${this.collection}/`, {
       params: {
         _page: page,
         _limit: this.forPage || null,
         _expand: toExpand,
+        ...filteredParams,
       },
     });
     return {

@@ -21,7 +21,7 @@ type StateContextType = {
 };
 
 interface SearchParams {
-  text: string;
+  q: string;
   cuisineId: string;
   dietId: string;
   difficultyId: string;
@@ -36,7 +36,7 @@ interface FilterData {
 type Token = string | null;
 
 const defaultSearchParamsState = {
-  text: "",
+  q: "",
   cuisineId: "",
   dietId: "",
   difficultyId: "",
