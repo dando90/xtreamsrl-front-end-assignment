@@ -1,3 +1,4 @@
+import { CommentAPI } from "../types/comment";
 import { RecipeAPI } from "../types/recipe";
 import CommentList from "./CommentList";
 
@@ -18,12 +19,26 @@ const RecipeSingle: React.FC<RecipeSingleProps> = ({ recipe }) => {
     comments,
   } = recipe;
 
+  const calculateAverageRating = (comments: CommentAPI[]) => {
+    if (comments.length === 0) return null;
+    const totalRating = comments.reduce(
+      (sum, comment) => sum + comment.rating,
+      0
+    );
+    return (totalRating / comments.length).toFixed(2);
+  };
+
+  const averageRating = calculateAverageRating(comments || []);
+
   return (
     <article
       className="flex flex-col gap-6 p-6 w-full mx-auto bg-white shadow-lg rounded-lg"
       id={`recipe#${id}`}
     >
-      <div className="text-2xl font-bold text-primary">{name}</div>
+      <div className="text-2xl font-bold text-primary">
+        {name}
+        {averageRating && ` - ${averageRating} ⭐`}
+      </div>
 
       <div className="flex flex-row gap-5 ">
         <img
