@@ -1,7 +1,7 @@
 import { BaseRepository } from "./BaseRepository";
-import { DietAPI } from "../types/diet";
+import { DietAPIGet, DietAPIPost } from "../types/diet";
 
-class DietRepository extends BaseRepository<DietAPI, FormData> {
+class DietRepository extends BaseRepository<DietAPIGet, DietAPIPost> {
   collection = "diets";
 }
 

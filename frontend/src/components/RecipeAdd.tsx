@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RecipeAPI } from "../types/recipe";
+import { RecipeAPIPost } from "../types/recipe";
 import { useStateContext } from "../contexts/contextProvider";
 import RecipeRepository from "../repositories/RecipeRepository";
 import { useNavigate } from "react-router-dom";
@@ -33,12 +33,11 @@ const RecipeAdd: React.FC = () => {
   };
 
   const handleSave = async () => {
-    const newRecipe: RecipeAPI = {
+    const newRecipe: RecipeAPIPost = {
       name,
       ingredients,
       instructions,
       image,
-      comments: [],
       cuisineId: selectedCuisine,
       dietId: selectedDiet,
       difficultyId: selectedDifficulty,
@@ -48,9 +47,7 @@ const RecipeAdd: React.FC = () => {
     formData.append("name", newRecipe.name);
     formData.append("ingredients", newRecipe.ingredients.join(","));
     formData.append("instructions", newRecipe.instructions);
-    if (image) {
-      formData.append("image", image);
-    }
+    if (image) formData.append("image", image);
     formData.append("cuisineId", newRecipe.cuisineId);
     formData.append("dietId", newRecipe.dietId);
     formData.append("difficultyId", newRecipe.difficultyId);

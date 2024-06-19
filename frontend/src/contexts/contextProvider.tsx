@@ -8,9 +8,9 @@ import {
 import CuisineRepository from "../repositories/CuisineRepository";
 import DifficultyRepository from "../repositories/DifficultyRepository";
 import DietRepository from "../repositories/DietRepository";
-import { CuisineAPI } from "../types/cuisine";
-import { DietAPI } from "../types/diet";
-import { DifficultyAPI } from "../types/difficulty";
+import { CuisineAPIGet } from "../types/cuisine";
+import { DietAPIGet } from "../types/diet";
+import { DifficultyAPIGet } from "../types/difficulty";
 
 type StateContextType = {
   token: Token;
@@ -28,9 +28,9 @@ interface SearchParams {
 }
 
 interface FilterData {
-  cuisines: CuisineAPI[];
-  diets: DietAPI[];
-  difficulties: DifficultyAPI[];
+  cuisines: CuisineAPIGet[];
+  diets: DietAPIGet[];
+  difficulties: DifficultyAPIGet[];
 }
 
 type Token = string | null;

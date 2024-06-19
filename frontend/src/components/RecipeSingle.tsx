@@ -1,9 +1,9 @@
-import { CommentAPI } from "../types/comment";
-import { RecipeAPI } from "../types/recipe";
+import { CommentAPIGet } from "../types/comment";
+import { RecipeAPIGet } from "../types/recipe";
 import CommentList from "./CommentList";
 
 interface RecipeSingleProps {
-  recipe: RecipeAPI;
+  recipe: RecipeAPIGet;
 }
 
 const RecipeSingle: React.FC<RecipeSingleProps> = ({ recipe }) => {
@@ -19,7 +19,7 @@ const RecipeSingle: React.FC<RecipeSingleProps> = ({ recipe }) => {
     comments,
   } = recipe;
 
-  const calculateAverageRating = (comments: CommentAPI[]) => {
+  const calculateAverageRating = (comments: CommentAPIGet[]) => {
     if (comments.length === 0) return null;
     const totalRating = comments.reduce(
       (sum, comment) => sum + comment.rating,
@@ -79,7 +79,7 @@ const RecipeSingle: React.FC<RecipeSingleProps> = ({ recipe }) => {
           </div>
         )}
       </div>
-      <CommentList recipeId={id || ""} comments={comments || []} />
+      <CommentList recipeId={id} comments={comments || []} />
     </article>
   );
 };

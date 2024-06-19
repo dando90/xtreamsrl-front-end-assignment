@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import RecipeRepository from "../repositories/RecipeRepository";
-import { RecipeAPI } from "../types/recipe";
+import { RecipeAPIGet } from "../types/recipe";
 import RecipeSingle from "../components/RecipeSingle";
 import { Link, useParams } from "react-router-dom";
 import LoadingPage from "./LoadingPage";
 import { ArrowLongLeftIcon } from "@heroicons/react/20/solid";
 
 const RecipePage: React.FC = () => {
-  const defaultRecipeState: RecipeAPI = {
+  const defaultRecipeState: RecipeAPIGet = {
     id: "",
     name: "",
     ingredients: [],
@@ -18,7 +18,7 @@ const RecipePage: React.FC = () => {
     image: "",
   };
 
-  const [recipe, setRecipes] = useState<RecipeAPI>(defaultRecipeState);
+  const [recipe, setRecipes] = useState<RecipeAPIGet>(defaultRecipeState);
   const [loading, setLoading] = useState(true);
   let { id } = useParams();
 

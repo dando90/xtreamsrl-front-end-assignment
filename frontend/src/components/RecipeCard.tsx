@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { RecipeAPI } from "../types/recipe";
+import { RecipeAPIGet } from "../types/recipe";
 
 interface RecipeCardProps {
-  recipe: RecipeAPI;
+  recipe: RecipeAPIGet;
 }
 
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {

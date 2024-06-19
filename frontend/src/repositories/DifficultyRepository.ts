@@ -1,7 +1,10 @@
 import { BaseRepository } from "./BaseRepository";
-import { DifficultyAPI } from "../types/difficulty";
+import { DifficultyAPIGet, DifficultyAPIPost } from "../types/difficulty";
 
-class DifficultyRepository extends BaseRepository<DifficultyAPI, FormData> {
+class DifficultyRepository extends BaseRepository<
+  DifficultyAPIGet,
+  DifficultyAPIPost
+> {
   collection = "difficulties";
 }
 

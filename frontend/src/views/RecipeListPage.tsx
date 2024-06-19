@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useStateContext } from "../contexts/contextProvider";
 import RecipeRepository from "../repositories/RecipeRepository";
-import { RecipeAPI } from "../types/recipe";
+import { RecipeAPIGet } from "../types/recipe";
 import RecipeList from "../components/RecipeList";
 import PageNavigation from "../components/PageNavigation";
 import LoadingPage from "./LoadingPage";
 import SearchFilterBar from "../components/SearchFilterBar";
 
 const RecipeListPage: React.FC = () => {
-  const [recipes, setRecipes] = useState<RecipeAPI[]>([]);
+  const [recipes, setRecipes] = useState<RecipeAPIGet[]>([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState<number>(0);

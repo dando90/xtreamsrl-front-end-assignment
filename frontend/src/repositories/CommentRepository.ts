@@ -1,7 +1,7 @@
 import { BaseRepository } from "./BaseRepository";
-import { CommentAPI } from "../types/comment";
+import { CommentAPIGet, CommentAPIPost } from "../types/comment";
 
-class CommentsRepository extends BaseRepository<CommentAPI, CommentAPI> {
+class CommentsRepository extends BaseRepository<CommentAPIGet, CommentAPIPost> {
   collection = "comments";
 }
 

@@ -1,9 +1,24 @@
-import { CommentAPI } from "./comment";
-import { CuisineAPI } from "./cuisine";
-import { DietAPI } from "./diet";
-import { DifficultyAPI } from "./difficulty";
+import { CommentAPIGet } from "./comment";
+import { CuisineAPIGet } from "./cuisine";
+import { DietAPIGet } from "./diet";
+import { DifficultyAPIGet } from "./difficulty";
 
-export interface RecipeAPI {
+export interface RecipeAPIGet {
+  id: string;
+  name: string;
+  ingredients: Array<string>;
+  instructions: string;
+  cuisineId: string;
+  dietId: string;
+  difficultyId: string;
+  image: string;
+  cuisine?: CuisineAPIGet;
+  diet?: DietAPIGet;
+  difficulty?: DifficultyAPIGet;
+  comments?: CommentAPIGet[];
+}
+
+export interface RecipeAPIPost {
   id?: string;
   name: string;
   ingredients: Array<string>;
@@ -11,9 +26,5 @@ export interface RecipeAPI {
   cuisineId: string;
   dietId: string;
   difficultyId: string;
-  image: string | null | File;
-  cuisine?: CuisineAPI;
-  diet?: DietAPI;
-  difficulty?: DifficultyAPI;
-  comments?: CommentAPI[];
+  image: File | null;
 }

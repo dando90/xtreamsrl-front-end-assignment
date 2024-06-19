@@ -1,7 +1,7 @@
 import { BaseRepository } from "./BaseRepository";
-import { CuisineAPI } from "../types/cuisine";
+import { CuisineAPIGet, CuisineAPIPost } from "../types/cuisine";
 
-class CuisineRepository extends BaseRepository<CuisineAPI, FormData> {
+class CuisineRepository extends BaseRepository<CuisineAPIGet, CuisineAPIPost> {
   collection = "cuisines";
 }
 

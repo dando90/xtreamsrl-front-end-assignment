@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CommentAPI } from "../types/comment";
+import { CommentAPIGet } from "../types/comment";
 import { formatDateForHumans } from "../utils/formatDate";
 import CommentsRepository from "../repositories/CommentRepository";
 import LoadingPage from "../views/LoadingPage";
@@ -9,7 +9,7 @@ const commentRepository = new CommentsRepository();
 
 interface CommentListProps {
   recipeId: string;
-  comments: CommentAPI[];
+  comments: CommentAPIGet[];
 }
 
 const CommentList: React.FC<CommentListProps> = ({ recipeId, comments }) => {
