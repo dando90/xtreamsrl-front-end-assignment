@@ -11,11 +11,12 @@ const RecipeListPage: React.FC = () => {
   const [recipes, setRecipes] = useState<RecipeAPI[]>([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState<number>(0);
   const { searchParams } = useStateContext();
 
   useEffect(() => {
     getRecipes();
-  }, [page, null, searchParams]);
+  }, [page, searchParams]);
 
   const getRecipes = async () => {
     setLoading(true);
@@ -25,7 +26,15 @@ const RecipeListPage: React.FC = () => {
       ["cuisine", "diet", "difficulty"],
       searchParams
     );
-    setRecipes(recipeList.data);
+    if (recipeList.data.length > 0) {
+      setRecipes(recipeList.data);
+      if (recipeList.data.length < import.meta.env.VITE_RECIPES_FOR_PAGE) {
+        setLastPage(page);
+      }
+    } else {
+      setLastPage(page);
+      setPage(page - 1);
+    }
     setLoading(false);
   };
 
@@ -35,7 +44,7 @@ const RecipeListPage: React.FC = () => {
     <>
       <SearchFilterBar />
       <RecipeList recipeList={recipes} />
-      <PageNavigation page={page} setPage={setPage} />
+      <PageNavigation page={page} setPage={setPage} lastPage={lastPage} />
     </>
   );
 };

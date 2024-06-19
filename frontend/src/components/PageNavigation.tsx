@@ -7,9 +7,14 @@ import { Dispatch, SetStateAction } from "react";
 interface PageNavigationProps {
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
+  lastPage: number;
 }
 
-const PageNavigation: React.FC<PageNavigationProps> = ({ page, setPage }) => {
+const PageNavigation: React.FC<PageNavigationProps> = ({
+  page,
+  setPage,
+  lastPage,
+}) => {
   const handleFirstPage = () => setPage(1);
   const handlePreviousPage = () => setPage(page > 1 ? page - 1 : 1);
   const handleNextPage = () => setPage(page + 1);
@@ -62,19 +67,21 @@ const PageNavigation: React.FC<PageNavigationProps> = ({ page, setPage }) => {
         </div>
       )}
       <div className="hidden md:-mt-px md:flex">{renderPageNumbers()}</div>
-      <div className="-mt-px flex w-0 flex-1 justify-end">
-        <a
-          href="#"
-          onClick={handleNextPage}
-          className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-        >
-          Next
-          <ArrowLongRightIcon
-            className="ml-3 h-5 w-5 text-gray-400"
-            aria-hidden="true"
-          />
-        </a>
-      </div>
+      {(!lastPage || page < lastPage) && (
+        <div className="-mt-px flex w-0 flex-1 justify-end">
+          <a
+            href="#"
+            onClick={handleNextPage}
+            className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+          >
+            Next
+            <ArrowLongRightIcon
+              className="ml-3 h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </a>
+        </div>
+      )}
     </nav>
   );
 };
