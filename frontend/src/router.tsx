@@ -7,6 +7,7 @@ import LoginPage from "./views/LoginPage";
 import AuthLayout from "./components/AuthLayout";
 import GuestLayout from "./components/GuestLayout";
 import AddRecipePage from "./views/AddRecipePage";
+import SignupPage from "./views/SignupPage";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
+      },
+      {
+        path: "/signup",
+        element: <SignupPage />,
       },
     ],
   },

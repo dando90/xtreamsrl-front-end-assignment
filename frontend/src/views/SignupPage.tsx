@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useStateContext } from "../contexts/contextProvider";
-import recipeImage from "/recipe_site_img.jpg";
+import recipeImage from "/recipe_site_img2.jpg";
 
-const LoginPage: React.FC = () => {
+const SignupPage: React.FC = () => {
   const { setToken } = useStateContext();
 
   return (
@@ -51,21 +51,36 @@ const LoginPage: React.FC = () => {
                 placeholder="Enter your password"
               />
             </div>
+            <div className="mb-4">
+              <label
+                className="block text-textPrimary text-sm font-bold mb-2"
+                htmlFor="password"
+              >
+                Retype password
+              </label>
+              <input
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                type="password"
+                id="password2"
+                name="password2"
+                placeholder="Re-enter your password"
+              />
+            </div>
             <button
               type="button"
               className="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-secondary transition duration-200"
               onClick={() => setToken("qwerty")}
             >
-              Login
+              Sign Up
             </button>
           </form>
           <div className="my-10 text-textPrimary text-sm font-bold">
-            Non already Registered?
+            Already Registered?
             <Link
               className="ml-5 w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-secondary transition duration-200"
-              to="/signup"
+              to="/login"
             >
-              Signup
+              Login
             </Link>
           </div>
         </div>
@@ -74,4 +89,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;
