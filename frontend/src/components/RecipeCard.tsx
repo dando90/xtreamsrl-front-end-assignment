@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { RecipeAPIGet } from "../types/recipe";
+import { calculateAverageRating } from "../utils/calculateAverageRating";
 
 interface RecipeCardProps {
   recipe: RecipeAPIGet;
@@ -15,7 +16,10 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
     cuisine,
     diet,
     difficulty,
+    comments,
   } = recipe;
+
+  const averageRating = calculateAverageRating(comments || []);
 
   return (
     <article
@@ -29,7 +33,10 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
           className="w-full h-48 object-cover rounded-t-lg"
         ></img>
         <div className="flex flex-col gap-2 p-4">
-          <h2 className="text-xl font-semibold text-primary">{name}</h2>
+          <h2 className="text-xl font-semibold text-primary">
+            {name} - {averageRating}
+            <span className="opacity-50">/5</span> ⭐
+          </h2>
           <p className="text-sm text-textPrimary">
             Ingredients: {ingredients.join(", ")}
           </p>

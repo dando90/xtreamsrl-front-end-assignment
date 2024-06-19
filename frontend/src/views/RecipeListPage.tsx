@@ -24,6 +24,7 @@ const RecipeListPage: React.FC = () => {
     const recipeList = await recipeRepository.index(
       page,
       ["cuisine", "diet", "difficulty"],
+      ["comments"],
       searchParams
     );
     if (recipeList.data.length > 0) {

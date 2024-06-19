@@ -18,6 +18,7 @@ export interface IBaseRepository<TData, TStore> {
   index(
     page: number,
     toExpand?: string[],
+    toEmbed?: string[],
     params?: SearchParams
   ): Promise<ApiResponse<TData[]>>;
   show(
@@ -40,6 +41,7 @@ export abstract class BaseRepository<TData, TStore>
   public async index(
     page?: number,
     toExpand?: string[],
+    toEmbed?: string[],
     params?: SearchParams
   ): Promise<ApiResponse<TData[]>> {
     const filteredParams = params
@@ -52,6 +54,7 @@ export abstract class BaseRepository<TData, TStore>
         _page: page,
         _limit: this.forPage || null,
         _expand: toExpand,
+        _embed: toEmbed,
         ...filteredParams,
       },
     });

@@ -1,5 +1,5 @@
-import { CommentAPIGet } from "../types/comment";
 import { RecipeAPIGet } from "../types/recipe";
+import { calculateAverageRating } from "../utils/calculateAverageRating";
 import CommentList from "./CommentList";
 
 interface RecipeSingleProps {
@@ -18,15 +18,6 @@ const RecipeSingle: React.FC<RecipeSingleProps> = ({ recipe }) => {
     difficulty,
     comments,
   } = recipe;
-
-  const calculateAverageRating = (comments: CommentAPIGet[]) => {
-    if (comments.length === 0) return null;
-    const totalRating = comments.reduce(
-      (sum, comment) => sum + comment.rating,
-      0
-    );
-    return (totalRating / comments.length).toFixed(1);
-  };
 
   const averageRating = calculateAverageRating(comments || []);
 
