@@ -26,6 +26,7 @@ export interface IBaseRepository<TData, TStore> {
     toEmbed?: string[]
   ): Promise<ApiResponse<TData>>;
   store(item: TStore): Promise<ApiResponse<TData>>;
+  destroy(id: string): Promise<ApiResponse<TData>>;
 }
 
 export abstract class BaseRepository<TData, TStore>
@@ -86,6 +87,15 @@ export abstract class BaseRepository<TData, TStore>
       data: response.data,
       status: response.status,
       message: `${this.collectionSingularName()} created successfully`,
+    };
+  }
+
+  public async destroy(id: string): Promise<ApiResponse<TData>> {
+    const response = await this.axiosClient.delete(`${this.collection}/${id}`);
+    return {
+      data: response.data,
+      status: response.status,
+      message: `${this.collectionSingularName()} #${id} deleted successfully`,
     };
   }
 

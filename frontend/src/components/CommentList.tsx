@@ -3,6 +3,9 @@ import { CommentAPI } from "../types/comment";
 import { formatDateForHumans } from "../utils/formatDate";
 import CommentsRepository from "../repositories/CommentRepository";
 import LoadingPage from "../views/LoadingPage";
+import { TrashIcon } from "@heroicons/react/20/solid";
+
+const commentRepository = new CommentsRepository();
 
 interface CommentListProps {
   recipeId: string;
@@ -30,10 +33,21 @@ const CommentList: React.FC<CommentListProps> = ({ recipeId, comments }) => {
     }));
   };
 
+  const handleCommentDelete = (
+    //TODO Add delete confirmation
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>
+  ) => {
+    const commentId = e.currentTarget.id;
+    if (!commentId) return;
+    commentRepository.destroy(commentId.toString());
+    setCommentList((prevState) =>
+      prevState.filter((comment) => comment.id != commentId)
+    );
+  };
+
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    const commentRepository = new CommentsRepository();
     setNewComment((prevState) => ({
       ...prevState,
       date: new Date().toISOString(),
@@ -66,6 +80,11 @@ const CommentList: React.FC<CommentListProps> = ({ recipeId, comments }) => {
             <div className="flex justify-between items-center mb-2">
               <span className="font-bold text-gray-600">
                 {formatDateForHumans(comment.date)}
+                <TrashIcon
+                  id={comment.id}
+                  className="ml-2 inline w-5 text-red-500 cursor-pointer hover:text-primary"
+                  onClick={handleCommentDelete}
+                />
               </span>
               <span className="text-yellow-500">
                 {"⭐".repeat(comment.rating)}
