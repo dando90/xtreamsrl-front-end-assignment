@@ -1,8 +1,8 @@
 import { AxiosInstance } from "axios";
 import axiosClient from "../axiosClient";
 
-export interface ApiResponse<T> {
-  data: T;
+export interface ApiResponse<TData> {
+  data: TData;
   status: number;
   message: string;
 }
@@ -14,21 +14,23 @@ export interface SearchParams {
   q: string;
 }
 
-export interface IBaseRepository<T> {
+export interface IBaseRepository<TData, TStore> {
   index(
     page: number,
     toExpand?: string[],
     params?: SearchParams
-  ): Promise<ApiResponse<T[]>>;
+  ): Promise<ApiResponse<TData[]>>;
   show(
     id: string,
     toExpand?: string[],
     toEmbed?: string[]
-  ): Promise<ApiResponse<T>>;
-  store(item: T): Promise<ApiResponse<T>>;
+  ): Promise<ApiResponse<TData>>;
+  store(item: TStore): Promise<ApiResponse<TData>>;
 }
 
-export abstract class BaseRepository<T> implements IBaseRepository<T> {
+export abstract class BaseRepository<TData, TStore>
+  implements IBaseRepository<TData, TStore>
+{
   //TODO add try/catch to handle errors
   protected collection: string | undefined;
   protected axiosClient: AxiosInstance = axiosClient;
@@ -38,7 +40,7 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
     page?: number,
     toExpand?: string[],
     params?: SearchParams
-  ): Promise<ApiResponse<T[]>> {
+  ): Promise<ApiResponse<TData[]>> {
     const filteredParams = params
       ? Object.fromEntries(
           Object.entries(params).filter(([_, value]) => value !== "")
@@ -63,7 +65,7 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
     id: string,
     toExpand?: string[],
     toEmbed?: string[]
-  ): Promise<ApiResponse<T>> {
+  ): Promise<ApiResponse<TData>> {
     const response = await this.axiosClient.get(`${this.collection}/${id}`, {
       params: {
         _expand: toExpand,
@@ -78,7 +80,7 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
     };
   }
 
-  public async store(item: T): Promise<ApiResponse<T>> {
+  public async store(item: TStore): Promise<ApiResponse<TData>> {
     const response = await this.axiosClient.post(`${this.collection}/`, item);
     return {
       data: response.data,

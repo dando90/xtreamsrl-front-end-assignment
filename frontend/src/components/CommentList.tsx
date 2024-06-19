@@ -14,7 +14,7 @@ const CommentList: React.FC<CommentListProps> = ({ recipeId, comments }) => {
   const [newComment, setNewComment] = useState({
     recipeId: recipeId,
     comment: "",
-    rating: 0,
+    rating: 5,
     date: new Date().toISOString(),
   });
   const [loading, setLoading] = useState(false);
@@ -67,13 +67,9 @@ const CommentList: React.FC<CommentListProps> = ({ recipeId, comments }) => {
               <span className="font-bold text-gray-600">
                 {formatDateForHumans(comment.date)}
               </span>
-              {comment.rating ? (
-                <span className="text-yellow-500">
-                  {"⭐".repeat(comment.rating)}
-                </span>
-              ) : (
-                <span>Zero</span>
-              )}
+              <span className="text-yellow-500">
+                {"⭐".repeat(comment.rating)}
+              </span>
             </div>
             <p className="text-gray-700">{comment.comment}</p>
           </div>
@@ -93,7 +89,7 @@ const CommentList: React.FC<CommentListProps> = ({ recipeId, comments }) => {
         />
         <div className="w-full p-2 mb-4 border border-gray-300 rounded-lg">
           <p>Recipe Rating</p>
-          {[0, 1, 2, 3, 4, 5].map((num) => (
+          {[1, 2, 3, 4, 5].map((num) => (
             <label key={num} className="inline-flex items-center mr-4">
               <input
                 type="radio"

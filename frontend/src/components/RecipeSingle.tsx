@@ -25,7 +25,7 @@ const RecipeSingle: React.FC<RecipeSingleProps> = ({ recipe }) => {
       (sum, comment) => sum + comment.rating,
       0
     );
-    return (totalRating / comments.length).toFixed(2);
+    return (totalRating / comments.length).toFixed(1);
   };
 
   const averageRating = calculateAverageRating(comments || []);
@@ -37,7 +37,8 @@ const RecipeSingle: React.FC<RecipeSingleProps> = ({ recipe }) => {
     >
       <div className="text-2xl font-bold text-primary">
         {name}
-        {averageRating && ` - ${averageRating} ⭐`}
+        {averageRating && ` - ${averageRating}`}
+        <span className="opacity-50">/5</span> ⭐
       </div>
 
       <div className="flex flex-row gap-5 ">

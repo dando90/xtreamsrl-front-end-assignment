@@ -15,7 +15,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
     cuisine,
     diet,
     difficulty,
-    comments,
   } = recipe;
 
   return (
