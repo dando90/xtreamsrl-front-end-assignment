@@ -100,7 +100,39 @@ comments. Enable users to add comments and rate the recipe, displaying the avera
 comments.
 
 ## How to run
-
 <!--- TODO Add a capybara picture -->
 
-...
+### Clone this repository to your pc
+Clone the repositoryor download and unzip the project on your PC
+### Setup backend server
+- Open a terminal and go to /server directory
+```bash
+cd server
+```
+- Install backend dependencies
+```bash
+npm install
+```
+- Run the backend server
+```bash
+npm start
+```
+- Copy the url where the server runs
+### Setup environment variables
+- Rename the file .env.example in .env
+- Add the backend server url next to VITE_API_BASE_URL
+- Add recipe for page number neext to VITE_RECIPES_FOR_PAGE
+### Setup frontend server
+- Open another terminal and go to /frontend directory
+```bash
+cd frontend
+```
+- Install frontend dependencies
+```bash
+npm install
+```
+- Run the frontend server
+```bash
+npm run dev
+```
+- Copy and paste in a web browser the url of the the frontend server
